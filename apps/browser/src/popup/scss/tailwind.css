@@ -1,4 +1,5 @@
 @import "../../../../../libs/components/src/tw-theme-preflight.css";
+@import "./custom-theme.css";
 
 @layer base {
   html {

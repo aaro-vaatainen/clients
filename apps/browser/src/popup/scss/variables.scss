@@ -8,7 +8,7 @@ $font-family-sans-serif: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-monospace: Menlo, Monaco, Consolas, "Courier New", monospace;
 $text-color: #000000;
 $border-color-dark: #ddd;
-$brand-primary: #175ddc;
+$brand-primary: #7c3aed;
 $brand-success: #017e45;
 $background-color: #f0f0f0;
 $button-color-primary: darken($brand-primary, 8%);
@@ -23,7 +23,7 @@ $themes: (
     buttonPrimaryColor: $button-color-primary,
     primaryColor: $brand-primary,
     successColor: $brand-success,
-    passwordNumberColor: #007fde,
+    passwordNumberColor: #7c3aed,
     passwordSpecialColor: #c40800,
   ),
   dark: (
@@ -32,10 +32,10 @@ $themes: (
     backgroundColor: #161c26,
     inputBorderColor: #4c525f,
     inputBackgroundColor: #2f343d,
-    buttonPrimaryColor: #6f9df1,
-    primaryColor: #6f9df1,
+    buttonPrimaryColor: #a855f7,
+    primaryColor: #a855f7,
     successColor: #52e07c,
-    passwordNumberColor: #6f9df1,
+    passwordNumberColor: #a855f7,
     passwordSpecialColor: #ff8d85,
   ),
 );
