@@ -1,0 +1,74 @@
+name: Build Custom Browser Extension
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - custom-ui-prototype
+    paths:
+      - "apps/browser/**"
+      - "libs/**"
+      - "package.json"
+      - "package-lock.json"
+      - "nx.json"
+      - ".nvmrc"
+      - ".github/workflows/custom-browser-build.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: custom-browser-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-chrome:
+    name: Build Chrome extension
+    runs-on: ubuntu-24.04
+
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Show versions
+        run: |
+          node --version
+          npm --version
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Chrome production ZIP
+        working-directory: apps/browser
+        run: npm run dist:chrome
+
+      - name: Upload Chrome production ZIP
+        uses: actions/upload-artifact@v7
+        with:
+          name: custom-bitwarden-chrome-prod-${{ github.sha }}
+          path: apps/browser/dist/dist-chrome.zip
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Build Chrome dev unpacked
+        working-directory: apps/browser
+        run: npm run build:dev:chrome
+
+      - name: Upload Chrome dev unpacked folder
+        uses: actions/upload-artifact@v7
+        with:
+          name: custom-bitwarden-chrome-dev-unpacked-${{ github.sha }}
+          path: apps/browser/build/
+          if-no-files-found: error
+          retention-days: 14
